@@ -1,0 +1,100 @@
+/* Post Card Container */
+.post-card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    backdrop-filter: blur(10px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+    color: white;
+  }
+  
+  /* Post Card Hover Effect */
+  .post-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Post Header (User Info & Follow Button) */
+  .post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+  }
+  
+  /* Username Link */
+  .post-username {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #1da1f2;
+    transition: color 0.3s ease;
+  }
+  
+  .post-username:hover {
+    color: #ff9a9e;
+  }
+  
+  /* Follow/Unfollow Button */
+  .post-follow-btn {
+    background: linear-gradient(45deg, #1da1f2, #ff9a9e);
+    border: none;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .post-follow-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Post Content */
+  .post-content {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+  
+  /* Media Styles (Image & Video) */
+  .post-media img,
+  .post-media video {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-top: 0.5rem;
+    transition: transform 0.3s ease;
+  }
+  
+  .post-media img:hover,
+  .post-media video:hover {
+    transform: scale(1.02);
+  }
+  
+  /* Like & Comment Section */
+  .post-actions {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: #ccc;
+    margin-top: 0.5rem;
+  }
+  
+  /* Likes */
+  .post-likes {
+    font-weight: bold;
+    color: #ff9a9e;
+  }
+  
+  /* Comments */
+  .post-comments {
+    font-weight: bold;
+    color: #1da1f2;
+  }
+  
