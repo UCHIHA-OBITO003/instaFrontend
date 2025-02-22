@@ -1,4 +1,3 @@
-// frontend/src/pages/Explore.js
 import React, { useEffect, useState } from 'react';
 import API from '../services/api';
 import PostCard from '../components/PostCard';
@@ -7,20 +6,28 @@ import CommentSection from '../components/CommentSection';
 const Explore = () => {
   const [posts, setPosts] = useState([]);
   const userId = localStorage.getItem('userId');
-  const [sort, setSort] = useState('newest'); // Default to latest posts
+  const [sort, setSort] = useState('none'); // Default to "None" (No sorting)
+  const [appliedSort, setAppliedSort] = useState('none'); // Tracks last applied filter
 
   useEffect(() => {
     fetchExplore();
-  }, [sort]);
+  }, [appliedSort]); // Only refetch when "Apply Filter" is clicked
 
   const fetchExplore = async () => {
     try {
-      const endpoint = `/posts/explore?sort=${sort}`;
+      let endpoint = `/posts/explore`;
+      if (appliedSort !== 'none') {
+        endpoint += `?sort=${appliedSort}`;
+      }
       const res = await API.get(endpoint);
       setPosts(res.data);
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const handleApplyFilter = () => {
+    setAppliedSort(sort); // Update applied filter and trigger useEffect
   };
 
   const handleLike = async (postId) => {
@@ -47,6 +54,7 @@ const Explore = () => {
       <div>
         <label>Sort by:</label>
         <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="none">None</option>
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
           <option value="most_liked">Most Liked</option>
@@ -55,18 +63,27 @@ const Explore = () => {
           <option value="least_commented">Least Commented</option>
           <option value="media_only">Posts with Media</option>
         </select>
+        <button 
+          onClick={handleApplyFilter} 
+          style={{ marginLeft: '1rem', padding: '0.5rem', backgroundColor: '#007bff', color: 'white', border: 'none', borderRadius: '5px' }}>
+          Apply Filter
+        </button>
       </div>
 
-      {posts.map((post) => (
-        <PostCard
-          key={post.id}
-          post={post}
-          onLike={handleLike}
-          onUnlike={handleUnlike}
-        >
-          <CommentSection postId={post.id} />
-        </PostCard>
-      ))}
+      {posts.length === 0 ? (
+        <p>No posts found.</p>
+      ) : (
+        posts.map((post) => (
+          <PostCard
+            key={post.id}
+            post={post}
+            onLike={handleLike}
+            onUnlike={handleUnlike}
+          >
+            <CommentSection postId={post.id} />
+          </PostCard>
+        ))
+      )}
     </div>
   );
 };
